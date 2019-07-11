@@ -1,0 +1,8 @@
+<?php
+
+return [
+    'subscribe' => false,
+
+];
+
+?>

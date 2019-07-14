@@ -10,7 +10,15 @@
                 <a class="blog-header-logo text-dark" href="{{ action('HomeController@index')  }}">{{ config('app.name') }}</a>
             </div>
             <div class="col-4 d-flex justify-content-end align-items-center">
-                <a class="btn btn-sm btn-outline-secondary" href="#">Login</a>
+                @auth
+                <form action="{{ route('logout')  }}" method="POST">
+                    @csrf
+                    <input type="submit" class="btn btn-sm btn-outline-secondary" value="Logout">
+                </form>
+                @endauth
+                @guest
+                <a class="btn btn-sm btn-outline-secondary" href="{{ route('login')  }}">Login</a>
+                @endguest
             </div>
         </div>
     </header>

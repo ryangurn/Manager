@@ -12,3 +12,7 @@
         7 PM GENERAL MEMBERSHIP<br />
     @endsection
 @stop
+
+@section('content-main')
+    @include('layouts._verify')
+@stop

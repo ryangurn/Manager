@@ -38,5 +38,11 @@ class ViewServiceProvider extends ServiceProvider
             ];
             View::share('navbarRoutes', collect($navbarRoutes));
         });
+
+
+        View::composer('layouts._verify', function($view) {
+           $currentUser =  auth()->user();
+           View::share('currentUser', $currentUser);
+        });
     }
 }

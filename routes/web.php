@@ -11,6 +11,22 @@
 |
 */
 
+/**
+ * Pubic pages no verification required
+ */
 Route::get('/', 'HomeController@index');
 Route::get('/contact', 'HomeController@contact');
 Route::get('/calendar', 'HomeController@calendar');
+
+Auth::routes(['verify' => true]);
+/**
+ * These pages with prompt for verification rather than redirect!
+ */
+Route::get('/home', 'HomeController@index')->name('home');
+
+/**
+ * Redirect the user to the email verification page.
+ */
+Route::group(['middleware' => 'verified'], function(){
+
+});

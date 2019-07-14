@@ -27,4 +27,5 @@
         {!! $calendar->calendar() !!}
         {!! $calendar->script() !!}
     @endif
+    <br /><hr />
 @stop

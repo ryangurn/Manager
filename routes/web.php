@@ -28,5 +28,5 @@ Route::get('/home', 'HomeController@index')->name('home');
  * Redirect the user to the email verification page.
  */
 Route::group(['middleware' => 'verified'], function(){
-
+    Route::resource('user', 'UserController');
 });

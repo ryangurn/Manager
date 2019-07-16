@@ -5,4 +5,6 @@
             <p class="mb-0">@yield('sidebar-about-content')</p>
         </div>
         @show
+
+        @yield('sidebar-extend')
     </aside><!-- /.blog-sidebar -->

@@ -5,10 +5,11 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use Notifiable;
+    use Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -36,4 +37,16 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function metadata(){
+        return $this->hasOne(UserMetadata::class);
+    }
+
+    public function getFirstNameAttribute($value){
+        return ucfirst(strtolower($value));
+    }
+
+    public function getLastNameAttribute($value){
+        return ucfirst(strtolower($value));
+    }
 }

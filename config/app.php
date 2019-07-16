@@ -171,6 +171,7 @@ return [
          * Composer Service Providers
          */
         MaddHatter\LaravelFullcalendar\ServiceProvider::class, // fullcalendar
+        Spatie\Permission\PermissionServiceProvider::class,
 
         /*
          * Application Service Providers...

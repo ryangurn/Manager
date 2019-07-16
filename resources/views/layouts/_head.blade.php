@@ -1,14 +1,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <title>@yield('title') · {{ config('app.name')  }}</title>
 
 <!-- Bootstrap core CSS -->
 <link href="{{ asset('css/material.min.css')  }}" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 <!-- Additional CSS -->
 @yield('style')
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
 <style>
     .bd-placeholder-img {

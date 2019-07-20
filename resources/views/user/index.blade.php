@@ -26,7 +26,7 @@
         <div class="card-header d-flex pr-0">
             <h5 class="card-title mb-0">Users</h5>
         </div>
-        <table class="table mb-0">
+        <table class="table mb-0 table-responsive">
             <thead>
             <tr>
                 <th scope="col">Name</th>
@@ -55,7 +55,7 @@
                                 <a class="chip chip-action" data-toggle="tooltip" title="Address not provided yet."><i class="material-icons">home</i></a>
                             @endif
                         </td>
-                        <td><a class="chip chip-action" href="#"><i class="material-icons">delete</i></a> <a class="chip chip-action" href="#"><i class="material-icons" data-toggle="modal" data-target="#user_{{ $user->id }}_edit">edit</i></a></td>
+                        <td><a class="chip chip-action" href="#"><i class="material-icons">delete</i></a> <a class="chip chip-action" href="{{ action('UserController@edit', $user->id)  }}"><i class="material-icons">edit</i></a></td>
                     </tr>
                 @endforeach
             @endif
@@ -80,10 +80,8 @@
         </div>
     </div>
 
-    @include('user.index._edit')
     @include('user.index._address')
     @include('user.index._phone')
-
 @stop
 
 @section('script')

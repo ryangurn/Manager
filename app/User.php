@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Validation\Rule;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -36,6 +37,31 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+    ];
+
+    public $CValidator = [
+
+    ];
+
+    public $RValidator = [
+
+    ];
+
+    public function UValidator($userID){
+        return [
+            'user' => 'required|integer|exists:users,id',
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users', 'email')->ignore($userID),
+            ]
+        ];
+    }
+
+    public $DValidator = [
+
     ];
 
     public function metadata(){

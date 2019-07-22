@@ -12,7 +12,13 @@
             <div class="modal-body">
                 <div class="alert alert-danger">
                     If you need to contact {{ ucfirst(strtolower($user->firstname))  }} outside of this system. Here is the phone number, but use it sparingly. When using Manager for communications your personal phone number is kept private. If you decide to use this information outside this system we cannot guarantee that your phone number will be kept private.<br /><br />
-                    <span class="chip mx-auto" style="width:100%;"><i class="material-icons">phone</i> +1 (818) 826-3499</span>
+                    @if($user->metadata->phone != null)
+                        @foreach($user->metadata->phone as $phone)
+                    <span class="chip mx-auto mb-3" style="width:100%;">
+                        <i class="material-icons">phone</i> {{ phone($phone['phone'], 'US')->formatForCountry('US')  }}
+                    </span>
+                        @endforeach
+                    @endif
                 </div>
             </div>
             <div class="modal-footer">

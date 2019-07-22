@@ -29,6 +29,8 @@ Route::get('/home', 'HomeController@index')->name('home');
  */
 Route::group(['middleware' => 'verified'], function(){
     Route::resource('user', 'UserController');
+    Route::put('/user/{user}/restore', 'UserController@restore');
+
     Route::put('/user/{user}/address', 'UserController@address');
     Route::put('/user/{user}/phone', 'UserController@phone');
     Route::put('/user/{user}/birthdate', 'UserController@birthdate');

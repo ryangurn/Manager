@@ -11,8 +11,12 @@
                 </button>
             </div>
             <div class="modal-body">
-                4641 Vista De Oro Avenue<br />
-                Woodland Hills, California 91364<br />
+                {{ $user->metadata->address['lineOne']  }}<br />
+                @if($user->metadata->address['lineTwo'] != null)
+                {{ $user->metadata->address['lineTwo']  }}<br />
+                @endif
+                {{ $user->metadata->address['city']  }}, {{ $user->metadata->address['state']  }} {{ $user->metadata->address['zipcode']  }}
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>

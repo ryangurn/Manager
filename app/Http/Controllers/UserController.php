@@ -7,24 +7,23 @@ use App\User;
 use App\UserMetadata;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::paginate(10);
         return view('user.index', compact('users'));
     }
 
+
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
@@ -32,33 +31,28 @@ class UserController extends Controller
         return view('user.create');
     }
 
+
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
      */
     public function store(Request $request)
     {
         //
     }
 
+
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
+     * @param User $user
      */
     public function show(User $user)
     {
         //
     }
 
+
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
+     * @param User $user
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(User $user)
     {
@@ -68,11 +62,9 @@ class UserController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param User $user
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, User $user)
     {
@@ -91,6 +83,11 @@ class UserController extends Controller
         return redirect()->back()->with('success', true);
     }
 
+    /**
+     * @param Request $request
+     * @param User $user
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function address(Request $request, User $user)
     {
         $m = new UserMetadata();
@@ -115,6 +112,11 @@ class UserController extends Controller
         return redirect()->back()->with('success', true);
     }
 
+    /**
+     * @param Request $request
+     * @param User $user
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function phone(Request $request, User $user)
     {
         $m = new UserMetadata();
@@ -140,6 +142,12 @@ class UserController extends Controller
         return redirect()->back()->with('success', true);
     }
 
+    /**
+     * @param Request $request
+     * @param User $user
+     * @param $number
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function phoneUpdate(Request $request, User $user, $number)
     {
         $m = new UserMetadata();
@@ -171,6 +179,11 @@ class UserController extends Controller
         return redirect()->back()->with('success', true);
     }
 
+    /**
+     * @param User $user
+     * @param $number
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function phoneDelete(User $user, $number){
         $validator = validator(['number' => $number], ['number' => 'required']);
 
@@ -197,6 +210,11 @@ class UserController extends Controller
         return redirect()->back()->with('success', true);
     }
 
+    /**
+     * @param Request $request
+     * @param User $user
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function birthdate(Request $request, User $user)
     {
         $m = new UserMetadata();
@@ -218,13 +236,45 @@ class UserController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
+     * @param User $user
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function destroy(User $user)
     {
-        //
+        $validator = validator(['user_id' => $user->id], ['user_id' => 'required|exists:users,id']);
+
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator);
+        }
+
+        $disabled = Role::where('name', '=', 'disabled')->first();
+
+        $user->assignRole($disabled);
+        $user->delete();
+        $user->save();
+
+        return redirect()->back()->with('success', true);
+    }
+
+    /**
+     * @param User $user
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function restore(User $user)
+    {
+        $validator = validator(['user_id' => $user->id], ['user_id' => 'required|exists:users,id']);
+
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator);
+        }
+
+        $disabled = Role::where('name', '=', 'disabled')->first();
+
+        $user->removeRole($disabled);
+        $user->restore();
+        $user->save();
+
+        return redirect()->back()->with('success', true);
     }
 }

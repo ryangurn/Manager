@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
-class UserPermissions extends Seeder
+class Roles extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,10 +12,10 @@ class UserPermissions extends Seeder
      */
     public function run()
     {
-        $arr = ['user-create', 'user-read', 'user-update', 'user-delete'];
+        $arr = ['disabled', 'registered'];
         foreach ($arr as $item){
             $this->command->info("Creating Role: ". $item);
-            Permission::findOrCreate($item);
+            Role::findOrCreate($item);
         }
     }
 }

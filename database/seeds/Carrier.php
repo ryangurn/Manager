@@ -18,7 +18,7 @@ class Carrier extends Seeder
         $lineExplode = explode("\n", $file);
         foreach ($lineExplode as $line){
             $commaExplode = explode(",", $line);
-            C::create(['name' => $commaExplode[0], 'gateway' => $commaExplode[1], 'country' => $commaExplode[2]]);
+            C::firstOrCreate(['name' => $commaExplode[0], 'gateway' => $commaExplode[1], 'country' => $commaExplode[2]]);
             $this->command->comment("Carrier & Gateway Added: ". $commaExplode[0]);
         }
 

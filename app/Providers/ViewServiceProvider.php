@@ -29,12 +29,15 @@ class ViewServiceProvider extends ServiceProvider
                 "Home" => [
                     "route" => 'HomeController@index'
                 ],
+                "Users" => [
+                    "route" => 'UserController@index'
+                ],
                 "Contact Us" => [
                     "route" => 'HomeController@contact'
                 ],
                 "Calendar" => [
                     "route" => 'HomeController@calendar'
-                ]
+                ],
             ];
             View::share('navbarRoutes', collect($navbarRoutes));
         });

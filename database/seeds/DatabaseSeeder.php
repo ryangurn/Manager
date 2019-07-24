@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
         $this->call(Carrier::class);
         $this->call(Permissions::class);
         $this->call(Roles::class);
+        $this->call(Countries::class);
         // $this->call(UsersTableSeeder::class);
     }
 }

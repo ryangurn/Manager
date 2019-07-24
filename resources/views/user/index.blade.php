@@ -39,7 +39,7 @@
                 @foreach($users as $user)
                     <tr>
                         <td>
-                            <a class="chip chip-action mb-1" href="#"><i class="chip-icon">{{ substr($user->firstname, 0, 1) }}{{ substr($user->lastname, 0, 1)  }}</i>{{ $user->firstname  }} {{ $user->lastname }}</a>
+                            <a class="chip chip-action mb-1" href="{{ action('UserController@show', [$user->id])  }}"><i class="chip-icon">{{ substr($user->firstname, 0, 1) }}{{ substr($user->lastname, 0, 1)  }}</i>{{ $user->firstname  }} {{ $user->lastname }}</a>
                             @if($user->hasRole('disabled')) <span class="badge badge-pill badge-dark">Disabled</span> @endif
                         </td>
                         <td>
@@ -69,13 +69,13 @@
                                 <div class="modal-dialog modal-sm" role="document">
                                     <div class="modal-content">
                                         <div class="modal-body">
-                                            <p class="text-black-secondary typography-subheading">Disable User</p>
+                                            <p class="text-black-secondary typography-subheading">Delete User</p>
                                         </div>
                                         <form class="modal-footer" action="{{ action('UserController@destroy', [$user->id])  }}" method="POST">
                                             <button class="btn btn-outline-info" data-dismiss="modal" type="button">Cancel</button>
                                             <input type="hidden" name="_method" value="DELETE" />
                                             @csrf
-                                            <input type="submit" class="btn btn-outline-info" value="Disable" />
+                                            <input type="submit" class="btn btn-outline-info" value="Delete" />
                                         </form>
                                     </div>
                                 </div>

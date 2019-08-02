@@ -21,25 +21,7 @@ class UserController extends Controller
         return view('user.index', compact('users'));
     }
 
-
-    /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function create()
-    {
-        return view('user.create');
-    }
-
-
-    /**
-     * @param Request $request
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-
+    
     /**
      * @param User $user
      */

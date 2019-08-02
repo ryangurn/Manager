@@ -42,6 +42,15 @@
 @endsection
 @stop
 
+@section('sidebar-extend')
+    <div class="p-4">
+        <h4 class="font-italic">User Quick Links</h4>
+        <ol class="list-unstyled">
+            <li><a href="{{ action('UserController@edit', $user->id)  }}">Edit</a></li>
+        </ol>
+    </div>
+@endsection
+
 @section('content-main')
     <ul class="nav nav-justified nav-tabs" id="justifiedTab" role="tablist">
         <li class="nav-item">

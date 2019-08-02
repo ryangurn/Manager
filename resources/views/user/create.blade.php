@@ -12,5 +12,7 @@
 @stop
 
 @section('content-main')
-
+    @section('section-title', 'Create User')
+    @section('section-action', action('UserController@store'))
+    @include("auth._partials.register-content")
 @stop
